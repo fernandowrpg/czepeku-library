@@ -30,6 +30,7 @@ Módulo do Foundry VTT (v12/v13) com uma interface de busca melhor para as cenas
 - As **tags de variação** (night, rain, winter, blood, fog…) mostram a contagem dentro do resultado atual. Clique numa tag para combinar.
 - Clique numa cena para importar (baixa na hora, se ainda não estiver no servidor). **Shift+clique** importa e abre, **Ctrl+clique** importa e ativa. Clique no nome do pack para ver o pack inteiro.
 - **Importar resultados** importa em lote tudo o que está filtrado, pulando as cenas já importadas.
+- Em **Ao importar** (barra lateral), você pode remover as luzes e o fog exploration e definir o padding da cena (0%, 5%, 10%, 25% ou manter o original).
 - As cenas importadas vão para a pasta `Czepeku / <pack>` (configurável nas configurações do módulo).
 - **Importar resultados** mostra antes o tamanho máximo que será baixado.
 

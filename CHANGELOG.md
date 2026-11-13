@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0]
+
+### Adicionado
+- Opção **Remover luzes e fog exploration** ao importar: apaga as fontes de luz da cena e desliga o Fog Exploration.
+- Opção **Padding** ao importar: manter o da cena, 0%, 5%, 10% ou 25%.
+- As duas opções ficam na barra lateral da biblioteca (seção "Ao importar") e nas configurações do módulo, e valem para o mundo inteiro.
+
 ## [1.0.0]
 
 ### Adicionado

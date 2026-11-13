@@ -176,6 +176,18 @@ function progressNote(msg) {
   return { update: () => {}, done: () => {} };
 }
 
+/** Ajustes opcionais aplicados ao JSON antes de criar a cena (configuráveis na barra lateral). */
+function applyImportOptions(data) {
+  if (game.settings.get(MOD, "removeLights")) {
+    data.lights = [];
+    // Fog Exploration desligado (v13: fog.exploration; JSONs antigos: fogExploration)
+    if ("fogExploration" in data) data.fogExploration = false;
+    data.fog = { ...(typeof data.fog === "object" && data.fog ? data.fog : {}), exploration: false };
+  }
+  const pad = game.settings.get(MOD, "padding");
+  if (pad !== "keep") data.padding = Number(pad);
+}
+
 /** Garante que a cena (JSON + arquivos) está no servidor; baixa do Moulinette só o que faltar. Retorna o texto do JSON. */
 async function ensureLocal(e, note) {
   if (await fileExists(e.json)) {
@@ -221,6 +233,7 @@ async function importEntry(e, { view = false, activate = false, note = null } = 
     const text = await ensureLocal(e, own);
     const data = JSON.parse(text);
     for (const k of ["_stats", "_id", "folder", "ownership", "active", "sort", "navigation", "navOrder"]) delete data[k];
+    applyImportOptions(data);
     const needsDims = !("width" in data);
     const folder = await getFolder(e.pack);
     data.folder = folder?.id ?? null;
@@ -292,6 +305,13 @@ class CzepekuLibrary extends ApplicationV2 {
         <label class="czl-chk"><input type="checkbox" name="walls"> Com paredes</label>
         <label class="czl-lbl">Variações / tags <a class="czl-clear-tags">limpar</a></label>
         <div class="czl-tags"></div>
+        <label class="czl-lbl">Ao importar</label>
+        <label class="czl-chk" title="Apaga as fontes de luz que vêm configuradas na cena e desliga o Fog Exploration"><input type="checkbox" name="removeLights"> Remover luzes e fog exploration</label>
+        <label class="czl-chk czl-row">Padding
+          <select name="padding">
+            <option value="keep">manter o da cena</option><option value="0">0%</option><option value="0.05">5%</option>
+            <option value="0.1">10%</option><option value="0.25">25%</option>
+          </select></label>
         <button class="czl-reset"><i class="fa-solid fa-rotate-left"></i> Limpar filtros</button>
         <div class="czl-catalog-info"></div>
         <button class="czl-refresh"><i class="fa-solid fa-cloud-arrow-down"></i> Atualizar catálogo</button>
@@ -347,6 +367,12 @@ class CzepekuLibrary extends ApplicationV2 {
       this.fillSelects(); this.shown = PAGE; this.refresh();
     });
     $(".czl-bulk").addEventListener("click", () => this.bulkImport());
+    const rl = $("input[name=removeLights]");
+    rl.checked = game.settings.get(MOD, "removeLights");
+    rl.addEventListener("change", () => game.settings.set(MOD, "removeLights", rl.checked));
+    const pd = $("select[name=padding]");
+    pd.value = game.settings.get(MOD, "padding");
+    pd.addEventListener("change", () => game.settings.set(MOD, "padding", pd.value));
     $(".czl-refresh").addEventListener("click", () => this.doRefreshCatalog());
 
     $(".czl-grid").addEventListener("click", async (ev) => {
@@ -600,6 +626,17 @@ function registerSettings() {
     name: "Criadores",
     hint: "Criadores do Moulinette incluídos no catálogo, separados por vírgula. Depois de mudar, clique em Atualizar catálogo.",
     scope: "world", config: true, type: String, default: DEFAULT_CREATORS.join(", "),
+  });
+  game.settings.register(MOD, "removeLights", {
+    name: "Remover luzes e fog exploration ao importar",
+    hint: "Apaga as fontes de luz configuradas na cena e desliga o Fog Exploration.",
+    scope: "world", config: true, type: Boolean, default: false,
+  });
+  game.settings.register(MOD, "padding", {
+    name: "Padding da cena ao importar",
+    hint: "Margem em volta do mapa (Scene Padding). \"Manter\" usa o valor que vem na cena.",
+    scope: "world", config: true, type: String, default: "keep",
+    choices: { keep: "Manter o da cena", 0: "0%", 0.05: "5%", 0.1: "10%", 0.25: "25%" },
   });
   game.settings.register(MOD, "folderMode", {
     name: "Pasta das cenas importadas",
