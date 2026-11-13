@@ -1,0 +1,6 @@
+# segredo: session ID do Moulinette
+downloader/session.txt
+session.txt
+node_modules/
+*.zip
+.DS_Store
