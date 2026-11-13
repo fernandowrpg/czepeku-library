@@ -53,3 +53,10 @@
 .czl-pack-link:hover { text-decoration: underline; }
 
 .czl-open-btn { flex: 1 1 100%; }
+
+.czl-busy { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; background: rgba(0,0,0,.55); color: #fff; font-size: 26px; }
+.czl-card.busy .czl-busy { display: flex; }
+.czl-card.busy { cursor: progress; }
+.czl-catalog-info { margin-top: 14px; font-size: 11px; opacity: .65; }
+.czl-refresh { margin-top: 4px; }
+.czl-empty p { margin: 6px auto; max-width: 520px; }

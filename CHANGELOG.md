@@ -3,6 +3,8 @@
 ## [1.0.0]
 
 ### Adicionado
-- Biblioteca de cenas (Cze and Peku + Czepeku Scenes) com busca em português e inglês, filtros por pack, hora do dia, animação, luzes, paredes, tags de variação e favoritos.
-- Importação em um clique (Shift: importa e abre; Ctrl: importa e ativa) e importação em lote dos resultados filtrados.
-- Script `downloader/download.mjs` que baixa as cenas via API do Moulinette usando a sua sessão de assinante, com retomada e deduplicação.
+- Biblioteca com o catálogo do Moulinette (Cze and Peku + Czepeku Scenes): busca em português e inglês, filtros por criador, pack, hora do dia, animação, luzes, paredes, tags de variação e favoritos.
+- Importação sob demanda: cada cena (mapa, vídeo, tiles e JSON) só é baixada para o servidor quando você a importa, na mesma pasta do Moulinette. As próximas importações saem direto do disco.
+- Clique importa, Shift+clique importa e abre, Ctrl+clique importa e ativa. Também importa em lote os resultados filtrados.
+- Botão **Atualizar catálogo**, que lê o catálogo do Moulinette (~30 s) e salva em `Data/czepeku-library/catalog.json`, compartilhado por todos os mundos.
+- Script opcional `downloader/download.mjs` para baixar tudo (ou packs inteiros) de uma vez.

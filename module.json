@@ -1,7 +1,7 @@
 {
   "id": "czepeku-library",
   "title": "Czepeku Library — Biblioteca de Cenas",
-  "description": "Biblioteca local das cenas do Cze and Peku e do Czepeku Scenes (baixadas com a sua assinatura via Moulinette) com busca rápida em português, filtros por pack, hora do dia, variações, animação, favoritos e importação em um clique.",
+  "description": "Busca rápida em português no catálogo do Moulinette (Cze and Peku + Czepeku Scenes) com filtros por pack, hora do dia, variações, animação e favoritos. Cada cena só é baixada para o servidor quando você a importa — usa a sua assinatura via Moulinette.",
   "version": "1.0.0",
   "compatibility": {
     "minimum": "12",
@@ -21,5 +21,14 @@
   ],
   "url": "https://github.com/fernandowrpg/czepeku-library",
   "manifest": "https://github.com/fernandowrpg/czepeku-library/releases/latest/download/module.json",
-  "download": "https://github.com/fernandowrpg/czepeku-library/releases/download/v1.0.0/czepeku-library.zip"
+  "download": "https://github.com/fernandowrpg/czepeku-library/releases/download/v1.0.0/czepeku-library.zip",
+  "relationships": {
+    "recommends": [
+      {
+        "id": "moulinette",
+        "type": "module",
+        "reason": "A biblioteca usa a sessão do Moulinette (Patreon) para ler o catálogo e baixar as cenas."
+      }
+    ]
+  }
 }
